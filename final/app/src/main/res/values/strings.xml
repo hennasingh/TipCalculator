@@ -2,12 +2,14 @@
     <string name="app_name">final</string>
   <string name="tip_header">Lets Calculate Tip</string>
   <string name="tv_guests_label">Number of Guests</string>
-  <string name="hint_guests">Enter number of guests</string>
+  <string name="hint_guests">Enter number of guests (default 4)</string>
   <string name="hint_bill">Enter Bill amount</string>
-  <string name="hint_tip20">Enter Tip (default applied 20%)</string>
+  <string name="hint_tip20">Enter Tip % (default applied 20)</string>
   <string name="calculate_total">Calculate Total</string>
   <string name="default_guests">4</string>
   <string name="default_tip">20</string>
   <string name="total_per_person">Total Amount per person %1$.2f</string>
   <string name="empty_field_error">Field cannot be left empty</string>
+  <string name="reset">Reset</string>
+  <string name="all_empty">Fields cannot be left empty</string>
 </resources>

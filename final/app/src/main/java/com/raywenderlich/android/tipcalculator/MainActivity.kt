@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -33,7 +34,17 @@ class MainActivity : AppCompatActivity() {
 
     //click listener
     btn_total.setOnClickListener {
-      mainViewModel.calculateBillPerPerson()
+      if (mainViewModel.validateBillField() && mainViewModel.validateTipField() && mainViewModel.validateGuestField())
+        mainViewModel.calculateBillPerPerson()
+      else
+        Toast.makeText(this, getString(R.string.all_empty), Toast.LENGTH_LONG).show()
+    }
+
+    btn_reset.setOnClickListener {
+      et_guests.text.clear()
+      et_bill.text.clear()
+      et_tip.text.clear()
+      tv_total.text = ""
     }
 
     setUpObservers()

@@ -66,10 +66,9 @@ class MainViewModel : ViewModel(){
     val bill = billField.value
     val tip = tipField.value
 
-    bill?.let {
-      val tipAmount = (tip?.times(it))?.div(100)
-      val totalAmount = it.plus(tipAmount!!)
-      billPerPerson.postValue(totalAmount.div(guests ?: 4))
-    }
+    val tipAmount = (tip!!.times(bill!!)).div(100)
+    val totalAmount = bill.plus(tipAmount)
+    billPerPerson.postValue(totalAmount.div(guests!!))
+
   }
 }

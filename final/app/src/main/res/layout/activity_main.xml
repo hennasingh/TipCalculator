@@ -20,69 +20,99 @@
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
 
-  <EditText
-    android:id="@+id/et_guests"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="12dp"
-    android:inputType="number"
-    android:background="@drawable/custom_edit_text"
-    android:drawableStart="@drawable/guests_icon"
-    android:drawablePadding="4dp"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/tv_header"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.5"
-    android:hint="@string/hint_guests"/>
-
-  <EditText
-    android:id="@+id/et_bill"
+  <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/tl_guests"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/dimen_12"
-    android:background="@drawable/custom_edit_text"
-    android:drawableStart="@drawable/bill_icon"
-    android:drawablePadding="@dimen/dimen_4"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/et_guests"
+    app:errorTextAppearance="@style/errorText"
+    app:hintTextAppearance="@style/hintText"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.5"
-    android:inputType="numberDecimal"
-    android:hint="@string/hint_bill"/>
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/tv_header">
 
-  <EditText
-    android:id="@+id/et_tip"
+    <EditText
+      android:id="@+id/et_guests"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/custom_edit_text"
+      android:drawableStart="@drawable/guests_icon"
+      android:drawablePadding="@dimen/dimen_4"
+      android:hint="@string/hint_guests"
+      android:inputType="number" />
+
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/tl_bill"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/dimen_12"
-    android:inputType="numberDecimal"
-    android:background="@drawable/custom_edit_text"
-    android:drawableStart="@drawable/tip_icon"
-    android:drawablePadding="@dimen/dimen_4"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/et_bill"
+    app:errorTextAppearance="@style/errorText"
+    app:hintTextAppearance="@style/hintText"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.5"
-    android:hint="@string/hint_tip20"/>
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/tl_guests">
+
+    <EditText
+      android:id="@+id/et_bill"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/custom_edit_text"
+      android:drawableStart="@drawable/bill_icon"
+      android:drawablePadding="@dimen/dimen_4"
+      android:hint="@string/hint_bill"
+      android:inputType="numberDecimal" />
+
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/tl_tip"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dimen_12"
+    app:errorTextAppearance="@style/errorText"
+    app:hintTextAppearance="@style/hintText"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/tl_bill">
+
+    <EditText
+      android:id="@+id/et_tip"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/custom_edit_text"
+      android:drawableStart="@drawable/tip_icon"
+      android:drawablePadding="@dimen/dimen_4"
+      android:hint="@string/hint_tip20"
+      android:inputType="numberDecimal" />
+
+  </com.google.android.material.textfield.TextInputLayout>
 
   <TextView
     android:id="@+id/tv_total"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dimen_12"
+    android:layout_marginStart="@dimen/dimen_12"
+    android:layout_marginTop="18dp"
+    android:layout_marginEnd="@dimen/dimen_12"
     android:background="@drawable/custom_edit_text"
     android:drawableStart="@drawable/total_bill"
+    android:gravity="center"
     android:drawablePadding="@dimen/dimen_4"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/et_tip"
+    android:textColor="@color/red_dark"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.5" />
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/tl_tip"
+    tools:text="@string/total_per_person" />
 
   <Button
     android:id="@+id/btn_total"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dimen_12"
+    android:layout_marginStart="@dimen/dimen_12"
+    android:layout_marginTop="18dp"
+    android:layout_marginEnd="@dimen/dimen_12"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toBottomOf="@id/tv_total"

@@ -40,6 +40,7 @@ class MainViewModel : ViewModel(){
     const val TAG = "MainViewModel"
   }
 
+
   private val guestsField: MutableLiveData<Int> = MutableLiveData()
   private val billField: MutableLiveData<Double> = MutableLiveData()
   private val tipField: MutableLiveData<Double>  = MutableLiveData()
@@ -59,14 +60,16 @@ class MainViewModel : ViewModel(){
 
   fun getBillPerPerson(): LiveData<Double> = billPerPerson
 
+
   fun calculateBillPerPerson(){
     val guests = guestsField.value
     val bill = billField.value
     val tip = tipField.value
 
-    val tipAmount = (tip?.times(bill!!))?.div(100)
-
-    val totalAmount = bill?.plus(tipAmount!!)
-    billPerPerson.postValue(totalAmount?.div(guests!!))
+    bill?.let {
+      val tipAmount = (tip?.times(it))?.div(100)
+      val totalAmount = it.plus(tipAmount!!)
+      billPerPerson.postValue(totalAmount.div(guests ?: 4))
+    }
   }
 }

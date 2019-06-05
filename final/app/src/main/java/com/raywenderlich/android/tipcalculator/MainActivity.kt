@@ -2,77 +2,115 @@ package com.raywenderlich.android.tipcalculator
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mainViewModel: MainViewModel
+  private lateinit var mainViewModel: MainViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+  companion object {
+    const val DEFAULT_GUESTS = 4
+    const val DEFAULT_TIP = 20.0
+  }
 
-        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_main)
 
-        et_guests.setText(getString(R.string.default_guests))
-        et_tip.setText(getString(R.string.default_tip))
+    mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
-        btn_total.setOnClickListener{
-            mainViewModel.calculateBillPerPerson()
-        }
+    //setting default values
+    et_guests.setText(getString(R.string.default_guests))
+    et_tip.setText(getString(R.string.default_tip))
+    mainViewModel.onGuestChange(DEFAULT_GUESTS)
+    mainViewModel.onTipChange(DEFAULT_TIP)
 
-        //Guests EditTextField
-        et_guests.addTextChangedListener(object : TextWatcher {
 
-            override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
-                et_guests.error = null
-                mainViewModel.onGuestChange(text.toString().toInt())
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                if(!mainViewModel.validateGuestField()){
-                    et_guests.error = getString(R.string.empty_field_error)
-                }
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-        })
-
-        //Bill EditTextField
-        et_bill.addTextChangedListener(object : TextWatcher {
-
-            override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
-                et_bill.error = null
-                mainViewModel.onBillChange(text.toString().toDouble())
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                if(!mainViewModel.validateBillField()){
-                    et_bill.error = getString(R.string.empty_field_error)
-                }
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-        })
-
-        //Tip EditTextField
-        et_tip.addTextChangedListener(object : TextWatcher {
-
-            override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
-                et_tip.error = null
-                mainViewModel.onTipChange(text.toString().toDouble())
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                if(!mainViewModel.validateTipField()){
-                    et_tip.error = getString(R.string.empty_field_error)
-                }
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-        })
+    //click listener
+    btn_total.setOnClickListener {
+      mainViewModel.calculateBillPerPerson()
     }
+
+    setUpObservers()
+  }
+
+  private fun setUpObservers() {
+
+    mainViewModel.getBillPerPerson().observe(this, Observer {
+      tv_total.text = getString(R.string.total_per_person, it)
+    })
+
+    mainViewModel.getGuestNumber().observe(this, Observer {
+      if (Integer.parseInt(et_guests.text.toString()) != it) et_guests.setText(it.toString())
+    })
+
+    mainViewModel.getBillAmount().observe(this, Observer {
+      if ((et_bill.text?.toString())?.toDouble() != it) et_bill.setText(it.toString())
+    })
+
+    mainViewModel.getTipAmount().observe(this, Observer {
+      if (et_tip.text?.toString()?.toDouble() != it) et_tip.setText(it.toString())
+    })
+
+    //Guest Text Input Layout
+    tl_guests.editText?.addTextChangedListener(object : TextWatcher {
+      override fun afterTextChanged(s: Editable?) {}
+
+      override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+      override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
+        if (TextUtils.isEmpty(text)) {
+          tl_guests.isErrorEnabled = true
+          tl_guests.setError(getString(R.string.empty_field_error))
+        } else {
+          tl_guests.isErrorEnabled = false
+          mainViewModel.onGuestChange(text.toString().toInt())
+        }
+      }
+
+
+    })
+
+    //Bill Text Input Layout
+    tl_bill.editText?.addTextChangedListener(object : TextWatcher {
+      override fun afterTextChanged(s: Editable?) {}
+
+      override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+      override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
+        if (TextUtils.isEmpty(text)) {
+          tl_bill.isErrorEnabled = true
+          tl_bill.setError(getString(R.string.empty_field_error))
+        } else {
+          tl_bill.isErrorEnabled = false
+          mainViewModel.onBillChange(text.toString().toDouble())
+        }
+      }
+
+
+    })
+
+    //Tip Text Input Layout
+    tl_tip.editText?.addTextChangedListener(object : TextWatcher {
+      override fun afterTextChanged(s: Editable?) {}
+
+      override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+      override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
+        if (TextUtils.isEmpty(text)) {
+          tl_tip.isErrorEnabled = true
+          tl_tip.setError(getString(R.string.empty_field_error))
+        } else {
+          tl_tip.isErrorEnabled = false
+          mainViewModel.onTipChange(text.toString().toDouble())
+        }
+      }
+    })
+
+  }
 }

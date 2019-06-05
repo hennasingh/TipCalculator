@@ -8,6 +8,6 @@
   <string name="calculate_total">Calculate Total</string>
   <string name="default_guests">4</string>
   <string name="default_tip">20</string>
-  <string name="total_per_person">Total Amount per person %1$d</string>
+  <string name="total_per_person">Total Amount per person %1$.2f</string>
   <string name="empty_field_error">Field cannot be left empty</string>
 </resources>

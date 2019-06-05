@@ -10,4 +10,6 @@
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#000000</color>
     <color name="white">#fff</color>
+    <color name="red_dark">#af4448</color>
+    <color name="red_light">#e57373</color>
 </resources>

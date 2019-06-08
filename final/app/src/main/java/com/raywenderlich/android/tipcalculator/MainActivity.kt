@@ -25,12 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
-    //setting default values
-    et_guests.setText(getString(R.string.default_guests))
-    et_tip.setText(getString(R.string.default_tip))
-    mainViewModel.onGuestChange(DEFAULT_GUESTS)
-    mainViewModel.onTipChange(DEFAULT_TIP)
-
+    setDefaultValues()
 
     //click listener
     btn_total.setOnClickListener {
@@ -45,9 +40,18 @@ class MainActivity : AppCompatActivity() {
       et_bill.text.clear()
       et_tip.text.clear()
       tv_total.text = ""
+      setDefaultValues()
     }
 
     setUpObservers()
+  }
+
+  private fun setDefaultValues() {
+    //setting default values
+    et_guests.setText(getString(R.string.default_guests))
+    et_tip.setText(getString(R.string.default_tip))
+    mainViewModel.onGuestChange(DEFAULT_GUESTS)
+    mainViewModel.onTipChange(DEFAULT_TIP)
   }
 
   private fun setUpObservers() {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">final</string>
+  <string name="app_name">Tip Calculator</string>
   <string name="tip_header">Lets Calculate Tip</string>
   <string name="tv_guests_label">Number of Guests</string>
   <string name="hint_guests">Enter number of guests (default 4)</string>

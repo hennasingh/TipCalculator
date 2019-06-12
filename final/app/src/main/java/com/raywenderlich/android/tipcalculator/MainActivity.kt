@@ -88,7 +88,6 @@ class MainActivity : AppCompatActivity() {
         }
       }
 
-
     })
 
     //Bill Text Input Layout

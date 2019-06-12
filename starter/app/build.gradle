@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
   compileSdkVersion 28
   defaultConfig {
@@ -30,4 +32,11 @@ dependencies {
   testImplementation 'junit:junit:4.12'
   androidTestImplementation 'androidx.test:runner:1.2.0'
   androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+  
+  //LiveData and ViewModel
+  implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+  kapt 'androidx.lifecycle:lifecycle-compiler:2.0.0'
+
+  //Material Design
+  implementation 'com.google.android.material:material:1.0.0'
 }
